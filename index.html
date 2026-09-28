@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101b2b">
+  <meta name="description" content="Thoughtful furniture for the way you live. Discover considered design, enduring materials, and free delivery from Morrow House.">
+  <title>Morrow House — Form for Living</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { colors: { ink: '#101b2b', deep: '#0b1421', cobalt: '#8eb6ff', chalk: '#f2f1ec', clay: '#d8795e' }, fontFamily: { sans: ['DM Sans', 'sans-serif'], display: ['Manrope', 'sans-serif'] } } } };
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root { color-scheme: dark; --ink: #101b2b; --deep: #0b1421; --chalk: #f2f1ec; --cobalt: #8eb6ff; --line: rgba(255,255,255,.13); }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body { margin: 0; background: var(--ink); color: #f7f7f3; font-family: 'DM Sans', sans-serif; }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    .display { font-family: 'Manrope', sans-serif; letter-spacing: 0; }
+    .announcement { background: #8eb6ff; color: #0b1421; }
+    .nav-link { position: relative; }
+    .nav-link::after { content: ''; position: absolute; left: 0; bottom: -6px; height: 1px; width: 100%; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .3s ease; }
+    .nav-link:hover::after { transform: scaleX(1); transform-origin: left; }
+    .hero { min-height: min(750px, calc(100svh - 126px)); background-image: linear-gradient(90deg, rgba(7,17,29,.78) 0%, rgba(7,17,29,.43) 43%, rgba(7,17,29,.03) 100%), linear-gradient(0deg, rgba(7,17,29,.42), transparent 40%), url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2400&q=88'); background-size: cover; background-position: center 54%; }
+    .hero-copy { animation: rise .85s .12s both cubic-bezier(.2,.7,.2,1); }
+    .hero-note { animation: rise .8s .4s both cubic-bezier(.2,.7,.2,1); }
+    @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes drift { from { transform: scale(1.035); } to { transform: scale(1); } }
+    .hero { animation: drift 1.8s ease-out both; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .product-image { transition: transform .7s cubic-bezier(.2,.7,.2,1); }
+    .product-card:hover .product-image { transform: scale(1.045); }
+    .category-chip { transition: background .2s, color .2s, border-color .2s; }
+    .category-chip.active { color: #101b2b; background: #8eb6ff; border-color: #8eb6ff; }
+    .drawer-backdrop, .modal-backdrop { opacity: 0; visibility: hidden; transition: opacity .25s, visibility .25s; }
+    .drawer-backdrop.open, .modal-backdrop.open { opacity: 1; visibility: visible; }
+    .cart-drawer { transform: translateX(102%); transition: transform .35s cubic-bezier(.22,.75,.2,1); }
+    .cart-drawer.open { transform: translateX(0); }
+    .toast { transform: translateY(14px); opacity: 0; pointer-events: none; transition: transform .25s, opacity .25s; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .video-wrap video { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .video-wrap::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(7,17,29,.6), transparent 70%), linear-gradient(0deg, rgba(7,17,29,.38), transparent 48%); }
+    .no-scroll { overflow: hidden; }
+    @media (max-width: 640px) { .hero { min-height: 680px; background-position: 57% center; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } .reveal { opacity: 1; transform: none; } }
+  </style>
+</head>
+<body>
+  <div class="announcement px-4 py-2 text-center text-[10px] font-bold uppercase tracking-[.18em] sm:text-[11px]">Complimentary delivery on every order · Thoughtfully made to last</div>
+  <header class="sticky top-0 z-40 border-b border-white/10 bg-ink/95 backdrop-blur-xl">
+    <nav class="mx-auto flex h-[74px] max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-12" aria-label="Main navigation">
+      <button id="mobile-menu-button" class="mr-3 inline-flex h-10 w-10 items-center justify-center md:hidden" aria-label="Open menu" aria-expanded="false"><i data-lucide="menu" class="h-5 w-5"></i></button>
+      <a href="#home" class="display flex items-center gap-2.5 text-[18px] font-extrabold tracking-[.04em] sm:text-[20px]" aria-label="Morrow House home"><span class="flex h-8 w-8 items-center justify-center rounded-full border border-cobalt/70 text-[13px] font-semibold text-cobalt">M</span><span>MORROW <span class="font-medium text-white/55">HOUSE</span></span></a>
+      <div id="nav-links" class="absolute left-0 right-0 top-[74px] hidden flex-col gap-5 border-b border-white/10 bg-ink px-6 py-6 text-sm text-white/75 md:static md:flex md:flex-row md:items-center md:gap-8 md:border-0 md:bg-transparent md:p-0">
+        <a class="nav-link" href="#shop">Shop</a><a class="nav-link" href="#story">Our story</a><a class="nav-link" href="#journal">The journal</a><a class="nav-link" href="#visit">Visit us</a>
+      </div>
+      <div class="ml-auto flex items-center gap-1 sm:gap-3">
+        <label class="hidden h-10 items-center gap-2 border-b border-white/25 px-1 lg:flex" aria-label="Search products"><i data-lucide="search" class="h-4 w-4 text-white/60"></i><input id="search-input" class="w-36 bg-transparent text-sm outline-none placeholder:text-white/40" type="search" placeholder="Find your piece..."></label>
+        <button id="mobile-search-button" class="inline-flex h-10 w-10 items-center justify-center lg:hidden" aria-label="Focus search"><i data-lucide="search" class="h-5 w-5"></i></button>
+        <button id="saved-button" class="relative inline-flex h-10 w-10 items-center justify-center" aria-label="Show saved pieces"><i data-lucide="heart" class="h-5 w-5"></i><span id="saved-count" class="absolute right-0 top-0 hidden h-[17px] min-w-[17px] items-center justify-center rounded-full bg-cobalt px-1 text-[9px] font-bold text-ink">0</span></button>
+        <button id="cart-button" class="relative inline-flex h-10 items-center gap-2 pl-1" aria-label="Open shopping bag"><i data-lucide="shopping-bag" class="h-5 w-5"></i><span class="hidden text-sm sm:block">Bag</span><span id="cart-count" class="absolute -right-2 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-cobalt px-1 text-[9px] font-bold text-ink">0</span></button>
+      </div>
+    </nav>
+    <div id="mobile-search" class="hidden border-t border-white/10 px-5 py-3 lg:hidden"><label class="flex items-center gap-3"><i data-lucide="search" class="h-4 w-4"></i><input id="mobile-search-input" class="w-full bg-transparent text-sm outline-none placeholder:text-white/45" placeholder="Find your piece..." type="search"></label></div>
+  </header>
+
+  <main>
+    <section id="home" class="hero relative flex items-end overflow-hidden px-5 pb-12 pt-24 sm:px-10 sm:pb-16 lg:px-16">
+      <div class="hero-copy relative z-10 max-w-[720px] pb-5 sm:pb-9">
+        <p class="mb-5 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[.24em] text-cobalt sm:text-xs"><span class="h-px w-9 bg-cobalt"></span>Rooms to come home to</p>
+        <h1 class="display max-w-[670px] text-[clamp(3.25rem,8.4vw,7.5rem)] font-medium leading-[.94] tracking-[-.045em]">A softer place<br>to land.</h1>
+        <p class="mt-6 max-w-[390px] text-sm leading-6 text-white/75 sm:text-base">Furniture for slow mornings, long evenings, and everything in between.</p>
+        <div class="mt-8 flex flex-wrap items-center gap-4"><a href="#shop" class="inline-flex min-h-12 items-center gap-3 bg-cobalt px-6 text-xs font-bold uppercase tracking-[.12em] text-ink transition hover:bg-white">Shop the collection <i data-lucide="arrow-up-right" class="h-4 w-4"></i></a><a href="#story" class="inline-flex min-h-12 items-center gap-2 px-3 text-xs font-semibold text-white transition hover:text-cobalt"><i data-lucide="play-circle" class="h-[18px] w-[18px]"></i>Meet Morrow</a></div>
+      </div>
+      <div class="hero-note absolute bottom-6 right-6 z-10 hidden max-w-[205px] border-l border-white/55 pl-4 text-xs leading-5 text-white/80 md:block lg:bottom-12 lg:right-14"><span class="mb-1 block text-[10px] font-bold uppercase tracking-[.18em] text-cobalt">The Sunday sofa</span>Deep seats. Quiet lines. Made for staying in.</div>
+      <a href="#shop" class="absolute bottom-7 right-5 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/50 text-white transition hover:bg-white hover:text-ink md:hidden" aria-label="Scroll to shop"><i data-lucide="arrow-down" class="h-4 w-4"></i></a>
+    </section>
+
+    <section class="border-y border-white/10 bg-deep px-5 py-5 sm:px-10 lg:px-16" aria-label="Our values"><div class="mx-auto grid max-w-[1280px] grid-cols-2 gap-5 text-xs sm:grid-cols-4 sm:gap-8"><div class="flex items-center gap-3"><i data-lucide="truck" class="h-4 w-4 shrink-0 text-cobalt"></i><span class="text-white/75">Free room-of-choice delivery</span></div><div class="flex items-center gap-3"><i data-lucide="leaf" class="h-4 w-4 shrink-0 text-cobalt"></i><span class="text-white/75">Responsibly sourced materials</span></div><div class="flex items-center gap-3"><i data-lucide="rotate-ccw" class="h-4 w-4 shrink-0 text-cobalt"></i><span class="text-white/75">30-day easy returns</span></div><div class="flex items-center gap-3"><i data-lucide="sparkles" class="h-4 w-4 shrink-0 text-cobalt"></i><span class="text-white/75">Made for the long run</span></div></div></section>
+
+    <section id="shop" class="bg-chalk px-5 py-20 text-ink sm:px-10 sm:py-24 lg:px-16">
+      <div class="mx-auto max-w-[1280px]">
+        <div class="reveal mb-9 flex flex-col justify-between gap-5 sm:mb-12 sm:flex-row sm:items-end"><div><p class="mb-3 text-[10px] font-bold uppercase tracking-[.22em] text-[#526985]">Considered pieces, everyday rituals</p><h2 class="display text-4xl font-semibold tracking-[-.04em] sm:text-5xl">Find your feeling.</h2></div><p class="max-w-[340px] text-sm leading-6 text-ink/65">A little less noise. A little more room to be yourself. Start with the pieces you’ll live in.</p></div>
+        <div class="mb-7 flex flex-col gap-4 border-b border-ink/15 pb-5 sm:flex-row sm:items-center sm:justify-between">
+          <div id="category-filters" class="flex gap-2 overflow-x-auto pb-1" aria-label="Filter by category"><button class="category-chip active shrink-0 rounded-full border border-ink/20 px-4 py-2 text-xs font-semibold" data-category="All">Everything</button><button class="category-chip shrink-0 rounded-full border border-ink/20 px-4 py-2 text-xs font-semibold" data-category="Seating">Seating</button><button class="category-chip shrink-0 rounded-full border border-ink/20 px-4 py-2 text-xs font-semibold" data-category="Tables">Tables</button><button class="category-chip shrink-0 rounded-full border border-ink/20 px-4 py-2 text-xs font-semibold" data-category="Storage">Storage</button><button class="category-chip shrink-0 rounded-full border border-ink/20 px-4 py-2 text-xs font-semibold" data-category="Lighting">Lighting</button></div>
+          <label class="flex items-center gap-2 text-xs text-ink/60">Sort by <select id="sort-select" class="bg-transparent py-2 font-semibold text-ink outline-none"><option value="featured">Featured</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option><option value="name">Name</option></select></label>
+        </div>
+        <div id="product-grid" class="grid grid-cols-1 gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-6"></div>
+        <p id="empty-state" class="hidden py-16 text-center text-sm text-ink/60">No pieces found. Try another search or category.</p>
+        <div class="mt-12 flex justify-center"><a href="#shop" id="view-all-link" class="inline-flex items-center gap-3 border-b border-ink/35 pb-2 text-xs font-bold uppercase tracking-[.14em] transition hover:border-ink hover:text-[#456ca4]">Explore all pieces <i data-lucide="arrow-right" class="h-4 w-4"></i></a></div>
+      </div>
+    </section>
+
+    <section id="story" class="bg-ink px-5 py-20 sm:px-10 sm:py-24 lg:px-16">
+      <div class="mx-auto max-w-[1280px]">
+        <div class="reveal mb-9 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><div><p class="mb-3 text-[10px] font-bold uppercase tracking-[.22em] text-cobalt">A little more Morrow</p><h2 class="display text-3xl font-semibold tracking-[-.035em] sm:text-4xl">Come on in.</h2></div><a class="inline-flex items-center gap-2 pb-1 text-xs font-semibold text-white/70 transition hover:text-cobalt" href="#journal">A note on how we make things <i data-lucide="arrow-up-right" class="h-4 w-4"></i></a></div>
+        <div class="video-wrap reveal relative aspect-[16/9] max-h-[670px] overflow-hidden bg-[#263448] sm:aspect-[2.12/1]">
+          <video controls playsinline preload="none" poster="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2000&q=85" aria-label="A look inside a warm, thoughtfully furnished Morrow House interior"><source src="https://videos.pexels.com/video-files/6489578/6489578-hd_1920_1080_25fps.mp4" type="video/mp4">Your browser does not support embedded video.</video>
+          <div class="pointer-events-none absolute inset-x-0 bottom-0 z-[1] flex items-end justify-between p-5 sm:p-9"><div><p class="mb-2 text-[10px] font-bold uppercase tracking-[.2em] text-cobalt">Made for real life</p><p class="display max-w-lg text-2xl font-medium leading-tight sm:text-4xl">Good design should feel like you.</p></div><span class="hidden items-center gap-2 text-[10px] font-bold uppercase tracking-[.15em] text-white/80 sm:flex"><i data-lucide="volume-2" class="h-4 w-4"></i> A slower kind of living</span></div>
+        </div>
+        <div class="reveal mt-10 grid gap-8 border-t border-white/15 pt-8 sm:grid-cols-3 sm:gap-12"><div><span class="display text-3xl font-semibold text-cobalt">01</span><h3 class="mt-3 text-sm font-semibold">Designed with intention</h3><p class="mt-2 text-xs leading-5 text-white/55">Clean, considered forms that make a room feel like it can breathe.</p></div><div><span class="display text-3xl font-semibold text-cobalt">02</span><h3 class="mt-3 text-sm font-semibold">Made to be lived in</h3><p class="mt-2 text-xs leading-5 text-white/55">Honest materials and enduring construction, ready for the everyday.</p></div><div><span class="display text-3xl font-semibold text-cobalt">03</span><h3 class="mt-3 text-sm font-semibold">A lighter footprint</h3><p class="mt-2 text-xs leading-5 text-white/55">Thoughtful sourcing, less packaging, and pieces worth keeping.</p></div></div>
+      </div>
+    </section>
+
+    <section id="journal" class="bg-[#d8e4f1] px-5 py-16 text-ink sm:px-10 sm:py-20 lg:px-16"><div class="reveal mx-auto flex max-w-[1280px] flex-col justify-between gap-8 md:flex-row md:items-center"><div class="max-w-xl"><p class="mb-3 text-[10px] font-bold uppercase tracking-[.22em] text-[#526985]">A letter from Morrow</p><h2 class="display text-3xl font-semibold tracking-[-.035em] sm:text-4xl">A little room in your inbox.</h2><p class="mt-3 max-w-md text-sm leading-6 text-ink/65">New pieces, thoughtful spaces, and notes on making home feel more like yours. No noise, ever.</p></div><form id="newsletter-form" class="flex w-full max-w-[470px] border-b border-ink/50 pb-2"><label class="sr-only" for="newsletter-email">Email address</label><input id="newsletter-email" required type="email" placeholder="Your email address" class="min-w-0 flex-1 bg-transparent py-3 text-sm outline-none placeholder:text-ink/45"><button class="inline-flex items-center gap-2 pl-3 text-xs font-bold uppercase tracking-[.12em]" type="submit">Sign me up <i data-lucide="arrow-right" class="h-4 w-4"></i></button></form></div></section>
+
+    <section id="visit" class="bg-deep px-5 py-10 sm:px-10 lg:px-16"><div class="mx-auto flex max-w-[1280px] flex-col gap-6 sm:flex-row sm:items-center sm:justify-between"><div class="flex items-center gap-3"><i data-lucide="map-pin" class="h-5 w-5 text-cobalt"></i><div><p class="text-sm font-semibold">Come sit for a while.</p><p class="mt-1 text-xs text-white/55">Our studio · 24 Mercer Street, New York</p></div></div><a href="https://maps.google.com/?q=24+Mercer+Street+New+York" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.13em] text-cobalt">Get directions <i data-lucide="arrow-up-right" class="h-4 w-4"></i></a></div></section>
+  </main>
+
+  <footer class="border-t border-white/10 bg-deep px-5 py-8 sm:px-10 lg:px-16"><div class="mx-auto flex max-w-[1280px] flex-col gap-6 sm:flex-row sm:items-center sm:justify-between"><a href="#home" class="display text-sm font-extrabold tracking-[.07em]">MORROW <span class="font-medium text-white/50">HOUSE</span></a><p class="text-[11px] text-white/45">Furniture for the in-between moments. © 2026 Morrow House</p><div class="flex gap-5 text-xs text-white/60"><a href="#visit" class="transition hover:text-cobalt">Instagram</a><a href="mailto:hello@morrow.house" class="transition hover:text-cobalt">Contact</a><a href="#shop" class="transition hover:text-cobalt">Shipping & returns</a></div></div></footer>
+
+  <div id="drawer-backdrop" class="drawer-backdrop fixed inset-0 z-50 bg-black/55" aria-hidden="true"></div>
+  <aside id="cart-drawer" class="cart-drawer fixed bottom-0 right-0 top-0 z-[60] flex w-full max-w-[440px] flex-col bg-chalk text-ink shadow-2xl" aria-label="Shopping bag" aria-modal="true" role="dialog"><div class="flex items-center justify-between border-b border-ink/15 px-6 py-5"><div><p class="text-[10px] font-bold uppercase tracking-[.18em] text-ink/55">Your selection</p><h2 class="display mt-1 text-xl font-semibold">Shopping bag <span id="drawer-item-count" class="text-ink/45">(0)</span></h2></div><button id="close-cart" class="flex h-10 w-10 items-center justify-center" aria-label="Close shopping bag"><i data-lucide="x" class="h-5 w-5"></i></button></div><div id="cart-items" class="flex-1 overflow-y-auto px-6"></div><div id="cart-footer" class="border-t border-ink/15 px-6 py-5"><div class="flex justify-between text-sm"><span>Subtotal</span><strong id="cart-subtotal">$0</strong></div><p class="mt-2 text-xs text-ink/55">Delivery is on us. Taxes calculated at checkout.</p><button id="checkout-button" class="mt-5 flex min-h-12 w-full items-center justify-center gap-2 bg-ink text-xs font-bold uppercase tracking-[.13em] text-white transition hover:bg-[#263b57]">Continue to checkout <i data-lucide="arrow-right" class="h-4 w-4"></i></button><p class="mt-3 text-center text-[10px] text-ink/45">Checkout is a demo for this storefront.</p></div></aside>
+
+  <div id="product-modal-backdrop" class="modal-backdrop fixed inset-0 z-[70] flex items-center justify-center bg-black/65 p-4" aria-hidden="true"><section id="product-modal" class="relative grid max-h-[90vh] w-full max-w-[820px] overflow-y-auto bg-chalk text-ink sm:grid-cols-2" role="dialog" aria-modal="true" aria-label="Product details"><button id="close-modal" class="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center bg-chalk/90" aria-label="Close product details"><i data-lucide="x" class="h-5 w-5"></i></button><img id="modal-image" class="aspect-square h-full w-full object-cover" alt=""><div class="flex flex-col justify-center p-6 sm:p-9"><p id="modal-category" class="text-[10px] font-bold uppercase tracking-[.18em] text-[#526985]"></p><h2 id="modal-name" class="display mt-3 text-3xl font-semibold"></h2><p id="modal-price" class="mt-3 text-base"></p><p id="modal-description" class="mt-5 text-sm leading-6 text-ink/65"></p><div class="mt-7 flex items-center gap-3 text-xs text-ink/60"><i data-lucide="check-circle-2" class="h-4 w-4 text-[#496b52]"></i> In stock · Ships in 2–3 weeks</div><button id="modal-add" class="mt-7 flex min-h-12 items-center justify-center gap-2 bg-ink text-xs font-bold uppercase tracking-[.13em] text-white transition hover:bg-[#263b57]">Add to bag <i data-lucide="shopping-bag" class="h-4 w-4"></i></button></div></section></div>
+  <div id="toast" class="toast fixed bottom-5 left-1/2 z-[80] -translate-x-1/2 bg-chalk px-5 py-3 text-xs font-semibold text-ink shadow-xl" role="status" aria-live="polite"></div>
+
+  <script>
+    const products = [
+      { id: 'sunday-sofa', name: 'Sunday Sofa', category: 'Seating', price: 2490, tag: 'Bestseller', color: 'Oat / Natural oak', image: 'photo-1555041469-a586c61ea9bc', description: 'The one everyone gravitates to. A generous, low-slung silhouette with deep, sink-in cushions and a quietly tailored profile.' },
+      { id: 'arc-lounge', name: 'Arc Lounge Chair', category: 'Seating', price: 980, tag: 'New', color: 'Moss / Solid ash', image: 'photo-1567538096630-e0c55bd6374c', description: 'A sculptural place to pause. Gently curved solid ash frames a supportive seat built for long conversations.' },
+      { id: 'lowline-table', name: 'Lowline Coffee Table', category: 'Tables', price: 720, tag: '', color: 'Smoked oak', image: 'photo-1499933374294-4584851497cc', description: 'A grounded, useful centrepiece in solid oak. Softened edges, a generous surface, and space for the things you reach for.' },
+      { id: 'form-sideboard', name: 'Form Sideboard', category: 'Storage', price: 1640, tag: '', color: 'Natural oak', image: 'photo-1595428774223-ef52624120d2', description: 'Thoughtful storage with a little architectural presence. Sliding doors keep everyday essentials close and out of sight.' },
+      { id: 'shore-table', name: 'Shore Dining Table', category: 'Tables', price: 1890, tag: 'Made to order', color: 'White oak', image: 'photo-1617806118233-18e1de247200', description: 'An easygoing gathering place for weekday dinners and one-more-glass evenings, crafted from responsibly sourced oak.' },
+      { id: 'field-lamp', name: 'Field Floor Lamp', category: 'Lighting', price: 460, tag: '', color: 'Ink / Linen', image: 'photo-1507473885765-e6ed057f782c', description: 'A warm pool of light, right where the evening needs it. A considered metal stem meets a tactile linen shade.' },
+      { id: 'cloud-bed', name: 'Cloud Bed Frame', category: 'Storage', price: 2190, tag: 'Bestseller', color: 'Natural ash', image: 'photo-1505693416388-ac5ce068fe85', description: 'A calm, softly upholstered headboard and honest timber details set the tone for a slower start to every day.' },
+      { id: 'nest-chair', name: 'Nest Dining Chair', category: 'Seating', price: 540, tag: '', color: 'Walnut / Woven seat', image: 'photo-1503602642458-232111445657', description: 'The chair that makes lingering easy. Solid walnut, a hand-woven seat, and proportions that feel just right.' }
+    ];
+    const imageUrl = (id, width = 760) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=82`;
+    const money = value => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
+    let activeCategory = 'All';
+    let query = '';
+    let saved = new Set();
+    let savedOnly = false;
+    let cart = {};
+    let activeProduct = null;
+    let toastTimer;
+    const grid = document.getElementById('product-grid');
+
+    function renderProducts() {
+      let visible = products.filter(product => (!savedOnly || saved.has(product.id)) && (activeCategory === 'All' || product.category === activeCategory) && `${product.name} ${product.category} ${product.color}`.toLowerCase().includes(query.toLowerCase()));
+      const sort = document.getElementById('sort-select').value;
+      if (sort === 'price-low') visible.sort((a, b) => a.price - b.price);
+      if (sort === 'price-high') visible.sort((a, b) => b.price - a.price);
+      if (sort === 'name') visible.sort((a, b) => a.name.localeCompare(b.name));
+      document.getElementById('empty-state').classList.toggle('hidden', visible.length > 0);
+      grid.innerHTML = visible.map(product => `
+        <article class="product-card group">
+          <div class="relative aspect-[.82] overflow-hidden bg-[#e3e3de]">
+            <button class="product-open absolute inset-0 z-[1] w-full" data-open="${product.id}" aria-label="View ${product.name}"></button>
+            <img class="product-image h-full w-full object-cover" src="${imageUrl(product.image)}" alt="${product.name}, ${product.color}" loading="lazy">
+            ${product.tag ? `<span class="absolute left-3 top-3 z-[2] bg-chalk px-3 py-1.5 text-[9px] font-bold uppercase tracking-[.12em]">${product.tag}</span>` : ''}
+            <button class="save-product absolute right-3 top-3 z-[3] flex h-9 w-9 items-center justify-center rounded-full bg-chalk/95 transition hover:bg-white" data-save="${product.id}" aria-label="${saved.has(product.id) ? 'Remove' : 'Save'} ${product.name}" aria-pressed="${saved.has(product.id)}"><i data-lucide="heart" class="h-[17px] w-[17px] ${saved.has(product.id) ? 'fill-[#d8795e] text-[#d8795e]' : 'text-ink'}"></i></button>
+            <button class="quick-add absolute bottom-3 left-3 right-3 z-[3] flex min-h-11 translate-y-2 items-center justify-center gap-2 bg-chalk text-[10px] font-bold uppercase tracking-[.14em] opacity-0 transition duration-300 hover:bg-cobalt group-hover:translate-y-0 group-hover:opacity-100 focus:translate-y-0 focus:opacity-100" data-add="${product.id}">Quick add <i data-lucide="plus" class="h-4 w-4"></i></button>
+          </div>
+          <div class="flex items-start justify-between gap-3 pt-4"><div><button class="product-name text-left text-sm font-semibold hover:underline" data-open="${product.id}">${product.name}</button><p class="mt-1 text-xs text-ink/55">${product.color}</p></div><span class="shrink-0 text-sm font-semibold">${money(product.price)}</span></div>
+        </article>`).join('');
+      lucide.createIcons();
+    }
+    function updateCounts() {
+      const count = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+      const savedCount = saved.size;
+      document.getElementById('cart-count').textContent = count;
+      document.getElementById('drawer-item-count').textContent = `(${count})`;
+      const savedBadge = document.getElementById('saved-count');
+      savedBadge.textContent = savedCount;
+      savedBadge.classList.toggle('hidden', savedCount === 0);
+      savedBadge.classList.toggle('flex', savedCount > 0);
+    }
+    function renderCart() {
+      const entries = Object.values(cart);
+      const itemsNode = document.getElementById('cart-items');
+      if (!entries.length) {
+        itemsNode.innerHTML = '<div class="flex h-full min-h-[280px] flex-col items-center justify-center text-center"><i data-lucide="shopping-bag" class="h-8 w-8 text-ink/35"></i><p class="mt-5 text-sm font-semibold">A little room for something good.</p><p class="mt-2 text-xs text-ink/55">Your bag is empty for now.</p><button data-close-drawer class="mt-6 border-b border-ink/40 pb-1 text-xs font-bold uppercase tracking-[.12em]">Keep exploring</button></div>';
+        document.getElementById('cart-subtotal').textContent = money(0);
+      } else {
+        itemsNode.innerHTML = entries.map(({ product, quantity }) => `<article class="flex gap-4 border-b border-ink/10 py-5"><img src="${imageUrl(product.image, 280)}" alt="${product.name}" class="h-24 w-24 object-cover"><div class="flex min-w-0 flex-1 flex-col"><div class="flex justify-between gap-3"><div><h3 class="text-sm font-semibold">${product.name}</h3><p class="mt-1 text-[11px] text-ink/55">${product.color}</p></div><strong class="text-sm">${money(product.price * quantity)}</strong></div><div class="mt-auto flex items-center justify-between"><div class="flex items-center border border-ink/20"><button class="quantity-change flex h-8 w-8 items-center justify-center" data-quantity="${product.id}" data-change="-1" aria-label="Decrease ${product.name} quantity"><i data-lucide="minus" class="h-3 w-3"></i></button><span class="w-7 text-center text-xs">${quantity}</span><button class="quantity-change flex h-8 w-8 items-center justify-center" data-quantity="${product.id}" data-change="1" aria-label="Increase ${product.name} quantity"><i data-lucide="plus" class="h-3 w-3"></i></button></div><button class="remove-item text-[10px] font-bold uppercase tracking-[.1em] text-ink/50 hover:text-ink" data-remove="${product.id}">Remove</button></div></div></article>`).join('');
+        const subtotal = entries.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+        document.getElementById('cart-subtotal').textContent = money(subtotal);
+      }
+      updateCounts();
+      lucide.createIcons();
+    }
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+    }
+    function addToCart(id) {
+      const product = products.find(item => item.id === id);
+      if (!product) return;
+      if (cart[id]) cart[id].quantity += 1; else cart[id] = { product, quantity: 1 };
+      renderCart();
+      showToast(`${product.name} added to your bag`);
+    }
+    function openCart() { document.getElementById('cart-drawer').classList.add('open'); document.getElementById('drawer-backdrop').classList.add('open'); document.body.classList.add('no-scroll'); document.getElementById('close-cart').focus(); }
+    function closeCart() { document.getElementById('cart-drawer').classList.remove('open'); document.getElementById('drawer-backdrop').classList.remove('open'); document.body.classList.remove('no-scroll'); }
+    function openProduct(id) {
+      const product = products.find(item => item.id === id);
+      if (!product) return;
+      activeProduct = product;
+      document.getElementById('modal-image').src = imageUrl(product.image, 900);
+      document.getElementById('modal-image').alt = `${product.name}, ${product.color}`;
+      document.getElementById('modal-category').textContent = product.category;
+      document.getElementById('modal-name').textContent = product.name;
+      document.getElementById('modal-price').textContent = money(product.price);
+      document.getElementById('modal-description').textContent = product.description;
+      document.getElementById('product-modal-backdrop').classList.add('open');
+      document.body.classList.add('no-scroll');
+      document.getElementById('close-modal').focus();
+    }
+    function closeProduct() { document.getElementById('product-modal-backdrop').classList.remove('open'); document.body.classList.remove('no-scroll'); activeProduct = null; }
+    function toggleSaved(id) {
+      if (saved.has(id)) { saved.delete(id); showToast('Removed from your saved pieces'); }
+      else { saved.add(id); showToast('Saved for later'); }
+      updateCounts();
+      renderProducts();
+    }
+    function setSearch(value) {
+      query = value.trim();
+      const desktop = document.getElementById('search-input');
+      const mobile = document.getElementById('mobile-search-input');
+      if (desktop.value !== value) desktop.value = value;
+      if (mobile.value !== value) mobile.value = value;
+      renderProducts();
+      document.getElementById('shop').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    document.getElementById('category-filters').addEventListener('click', event => {
+      const button = event.target.closest('[data-category]');
+      if (!button) return;
+      savedOnly = false;
+      document.getElementById('saved-button').setAttribute('aria-pressed', 'false');
+      activeCategory = button.dataset.category;
+      document.querySelectorAll('.category-chip').forEach(chip => chip.classList.toggle('active', chip === button));
+      renderProducts();
+    });
+    document.getElementById('sort-select').addEventListener('change', renderProducts);
+    grid.addEventListener('click', event => {
+      const add = event.target.closest('[data-add]');
+      const save = event.target.closest('[data-save]');
+      const open = event.target.closest('[data-open]');
+      if (add) addToCart(add.dataset.add);
+      else if (save) toggleSaved(save.dataset.save);
+      else if (open) openProduct(open.dataset.open);
+    });
+    document.getElementById('search-input').addEventListener('input', event => { savedOnly = false; document.getElementById('saved-button').setAttribute('aria-pressed', 'false'); query = event.target.value.trim(); document.getElementById('mobile-search-input').value = event.target.value; renderProducts(); });
+    document.getElementById('mobile-search-input').addEventListener('input', event => { savedOnly = false; document.getElementById('saved-button').setAttribute('aria-pressed', 'false'); query = event.target.value.trim(); document.getElementById('search-input').value = event.target.value; renderProducts(); });
+    document.getElementById('mobile-search-button').addEventListener('click', () => { const panel = document.getElementById('mobile-search'); panel.classList.toggle('hidden'); if (!panel.classList.contains('hidden')) document.getElementById('mobile-search-input').focus(); });
+    document.getElementById('saved-button').addEventListener('click', () => {
+      if (!saved.size) { showToast('Tap a heart to save a piece for later'); return; }
+      savedOnly = !savedOnly;
+      activeCategory = 'All';
+      query = '';
+      document.getElementById('search-input').value = '';
+      document.getElementById('mobile-search-input').value = '';
+      document.querySelectorAll('.category-chip').forEach(chip => chip.classList.toggle('active', chip.dataset.category === 'All'));
+      document.getElementById('saved-button').setAttribute('aria-pressed', String(savedOnly));
+      renderProducts();
+      document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+      showToast(savedOnly ? 'Showing your saved pieces' : 'Showing the full collection');
+    });
+    document.getElementById('cart-button').addEventListener('click', () => { renderCart(); openCart(); });
+    document.getElementById('close-cart').addEventListener('click', closeCart);
+    document.getElementById('drawer-backdrop').addEventListener('click', closeCart);
+    document.getElementById('cart-items').addEventListener('click', event => {
+      if (event.target.closest('[data-close-drawer]')) { closeCart(); return; }
+      const quantity = event.target.closest('[data-quantity]');
+      const remove = event.target.closest('[data-remove]');
+      if (quantity) { const id = quantity.dataset.quantity; cart[id].quantity += Number(quantity.dataset.change); if (cart[id].quantity <= 0) delete cart[id]; renderCart(); }
+      if (remove) { delete cart[remove.dataset.remove]; renderCart(); }
+    });
+    document.getElementById('checkout-button').addEventListener('click', () => showToast(Object.keys(cart).length ? 'Checkout is ready for your store integration' : 'Your bag is empty'));
+    document.getElementById('close-modal').addEventListener('click', closeProduct);
+    document.getElementById('product-modal-backdrop').addEventListener('click', event => { if (event.target.id === 'product-modal-backdrop') closeProduct(); });
+    document.getElementById('modal-add').addEventListener('click', () => { if (!activeProduct) return; addToCart(activeProduct.id); closeProduct(); openCart(); });
+    document.getElementById('newsletter-form').addEventListener('submit', event => { event.preventDefault(); const email = document.getElementById('newsletter-email'); if (!email.reportValidity()) return; showToast('You’re on the list. Talk soon.'); email.value = ''; });
+    document.getElementById('mobile-menu-button').addEventListener('click', event => { const nav = document.getElementById('nav-links'); const isOpen = !nav.classList.contains('hidden'); nav.classList.toggle('hidden', isOpen); nav.classList.toggle('flex', !isOpen); event.currentTarget.setAttribute('aria-expanded', String(!isOpen)); event.currentTarget.innerHTML = `<i data-lucide="${isOpen ? 'menu' : 'x'}" class="h-5 w-5"></i>`; lucide.createIcons(); });
+    document.getElementById('nav-links').addEventListener('click', event => { if (event.target.closest('a')) { const nav = document.getElementById('nav-links'); if (window.matchMedia('(max-width: 767px)').matches) { nav.classList.add('hidden'); nav.classList.remove('flex'); document.getElementById('mobile-menu-button').setAttribute('aria-expanded', 'false'); document.getElementById('mobile-menu-button').innerHTML = '<i data-lucide="menu" class="h-5 w-5"></i>'; lucide.createIcons(); } } });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') { closeCart(); closeProduct(); } });
+
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }), { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(node => observer.observe(node));
+    renderProducts();
+    renderCart();
+    lucide.createIcons();
+  </script>
+</body>
+</html>
